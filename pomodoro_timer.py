@@ -1,30 +1,29 @@
 import tkinter as tk
 from tkinter import messagebox
-from ttkbootstrap import ttk, Style
+import ttkbootstrap as ttk
 work_time = 25*60
 short_break_time= 5*60
 long_break_time = 15*60
 
 class PomodoroTimer:
     def __init__(self):
-        self.root = tk.Tk ()
+        self.root = tk.Tk()
         self.root.geometry("200x200")
         self.root.title("Pomodoro Timer")
-        self.style = Style (theme = "simplex")
-        self.style.theme_use()
+        self.style = ttk.Style(theme="simplex")
 
-        self.timer_label = tk.Label(self.root, text="", font=("TkDefaultFont", 40))
+        self.timer_label = tk.Label(self.root, text="25:00", font=("TkDefaultFont", 40))
         self.timer_label.pack(pady=20)
 
         self.start_button = ttk.Button(self.root, text="Start", command=self.start_timer)
         self.start_button.pack(pady=5)
 
-        self.start_button = ttk.Button(self.root, text="Stop", command=self.stop_timer,
+        self.stop_button = ttk.Button(self.root, text="Stop", command=self.stop_timer,
                                         state=tk.DISABLED)
-        self.start_button.pack(pady=5)
+        self.stop_button.pack(pady=5)
 
         self.work_time, self.break_time = work_time, short_break_time
-        self.is_work_time, self.pomodoros_completed, self.is_running = True,0,False
+        self.is_work_time, self.pomodoros_completed, self.is_running = True, 0, False
 
         self.root.mainloop()
 
@@ -57,4 +56,7 @@ class PomodoroTimer:
                 if self.break_time == 0:
                     self.is_work_time, self.work_time = True, work_time
                     messagebox.showinfo("Work Time", " Get back to work!")
-            minutes, seconds
+            minutes, seconds = divmod(self.work_time if self.is_work_time else self.break_time, 60)
+            self.timer_label.config(text="{:02d}:{:02d}".format(minutes, seconds))
+            self.root.after(1000, self.update_timer)
+PomodoroTimer()
