@@ -54,4 +54,7 @@ class PomodoroTimer:
                     
             else:
                 self.break_time -= 1
-                if self.break_time:
+                if self.break_time == 0:
+                    self.is_work_time, self.work_time = True, work_time
+                    messagebox.showinfo("Work Time", " Get back to work!")
+            minutes, seconds
