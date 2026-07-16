@@ -5,15 +5,31 @@ import sys
 venv_python = r"a:\Computer\Alla\HackClub\horizon_berlin-\zelda\.venv\Scripts\python.exe"
 
 scripts = [
-    "music_player.py",
-    "pomodoro_timer.py",
-    "notesapp.py"
+    {
+        "path": r"a:\Computer\Alla\HackClub\horizon_berlin-\music_player.py", 
+        "cwd": None
+    },
+    {
+        "path": r"a:\Computer\Alla\HackClub\horizon_berlin-\pomodoro_timer.py", 
+        "cwd": None
+    },
+    {
+        "path": r"a:\Computer\Alla\HackClub\horizon_berlin-\notesapp.py", 
+        "cwd": None
+    },
+    {
+        "path": r"a:\Computer\Alla\HackClub\horizon_berlin-\PlatformGame\platformer.py", 
+        "cwd": r"a:\Computer\Alla\HackClub\horizon_berlin-\PlatformGame" 
+    }
 ]
 
 processes = []
-for script in scripts:
-    if os.path.exists(script):
-        proc = subprocess.Popen([venv_python, script])
+for item in scripts:
+    script_path = item["path"]
+    working_dir = item["cwd"]
+    
+    if os.path.exists(script_path):
+        proc = subprocess.Popen([venv_python, script_path], cwd=working_dir)
         processes.append(proc)
     else:
         print("Error")
