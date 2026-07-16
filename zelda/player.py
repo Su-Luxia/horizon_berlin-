@@ -143,7 +143,7 @@ class Player(Entity):
                 if current_time - self.magic_switch_time >= self.switch_duration_cooldown:
                     self.can_switch_magic = True
             if not self.vulnerable:
-                if current_time - self.hurt_time >= self-self.invulnerability_duration:
+                if current_time - self.hurt_time >= self.invulnerability_duration:
                     self.vulnerable = True
 
     def animate(self):

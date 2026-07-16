@@ -59,10 +59,10 @@ class Upgrade:
         self.input()
         self.selection_cooldown()
 
-        for item,index in self.item_list:
+        for index, item in enumerate(self.item_list):
             name = self.attribute_names[index]
             value = self.player.get_value_by_index(index)
-            max_value = self.max_values[index]
+            max_value = self.max_value[index]
             cost = self.player.get_cost_by_index(index)
             item.display(self.display_surface,self.selection_index,name,value,max_value,cost)
 
@@ -87,8 +87,8 @@ class Item:
 
     def display_bar(self,surface,value,max_value,selected):
         #drawing
-        top= self.rect.midtop + pygame.math.Vector(0,60)
-        bottom=self.rect.midbottom + pygame.math.Vector(0,20)
+        top= self.rect.midtop + pygame.math.Vector2(0,60)
+        bottom=self.rect.midbottom + pygame.math.Vector2(0,20)
         color=BAR_COLOR_SELECTED if selected else BAR_COLOR
 
         #bar
@@ -102,7 +102,7 @@ class Item:
 
     def trigger(self,player):
         upgrade_attribute = list(player.stats.keys())[self.index]
-        if player.exp >= player.update_cost[upgrade_attribute] and player.stats[upgrade_attribute] < player.max_stats[upgrade_attribute]:
+        if player.exp >= player.upgrade_cost[upgrade_attribute] and player.stats[upgrade_attribute] < player.max_stats[upgrade_attribute]:
            player.exp -= player.upgrade_cost[upgrade_attribute] 
            player.stats[upgrade_attribute] *= 1.2
            player.upgrade_cost[upgrade_attribute] *= 1.4
@@ -117,5 +117,5 @@ class Item:
         else:
             pygame.draw.rect(surface,UI_BG_COLOR,self.rect)
             pygame.draw.rect(surface,UI_BORDER_COLOR,self.rect,4)
-        self.diswplay_names(surface,name,cost,self.index == selection_num)
+        self.display_names(surface,name,cost,self.index == selection_num)
         self.display_bar(surface,value,max_value,self.index == selection_num)
