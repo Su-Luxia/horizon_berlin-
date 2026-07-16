@@ -20,4 +20,4 @@ def import_folder(path):
             surface_list.append(image_surf)
     return surface_list
 
-#print(import_csv_layout('../map/map_FloorBlocks.csv'))
+#print(import_csv_layout('map/map_FloorBlocks.csv'))
