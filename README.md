@@ -8,3 +8,10 @@ platformer.py -> you want to click some buttons and look at soem funny pictures?
 
 learned from tutorials
 ai was used only for error correction for example: i did not know what an error meant -> asked ai for explanation e.g. terminal commands, errors
+
+requirements for this project:
+pygame
+ttkbootstrap
+customtkinter
+mutagen
+ 
