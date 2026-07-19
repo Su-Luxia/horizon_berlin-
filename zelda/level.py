@@ -13,7 +13,17 @@ from random import choice, randint
 from magic import MagicPlayer
 from upgrade import Upgrade
 import os
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+import sys
+
+def resource_path(relative_path):
+    try:
+        base_path = sys._MEIPASS
+    except AttributeError:
+        base_path = os.path.dirname(os.path.abspath(__file__))
+
+    return os.path.join(base_path, relative_path)
+
+BASE_DIR = resource_path("")
 
 class Level:
     def __init__(self):
@@ -56,8 +66,9 @@ class Level:
                             Tile((x,y), [self.obstacle_sprites], 'invisible')
                         if style == 'grass':
                             Tile((x,y), 
-                                 [self.visible_sprites, self.obstacle_sprites, 
-                                  self.attackable_sprites],) 
+                                [self.visible_sprites, self.obstacle_sprites, 
+                                self.attackable_sprites],
+                                'grass')
                         if style == 'object':
                             surf = graphics['object'][int(col)]
                             Tile((x,y), [self.visible_sprites, self.obstacle_sprites], 'object', surf)
